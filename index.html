@@ -113,6 +113,46 @@
       text-align: center;
     }
 
+    /* Transportation section */
+    .transport-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .transport-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .transport-card h3 {
+      color: #4ecdc4;
+      margin-bottom: 1rem;
+    }
+
+    .cost-breakdown {
+      background: rgba(78, 205, 196, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+
+    .cost-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .cost-item:last-child {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 0.5rem;
+      font-weight: bold;
+      color: #ff6b6b;
+    }
+
     /* Budget cards */
     .budget-grid {
       display: grid;
@@ -349,10 +389,12 @@
       padding: 1.5rem;
       border: 1px solid rgba(255, 255, 255, 0.2);
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .location-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
     }
 
     .location-card h4 {
@@ -382,6 +424,13 @@
       border-radius: 20px;
       padding: 2rem;
       border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .hotel-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
     }
 
     .hotel-card h3 {
@@ -392,6 +441,96 @@
     .rating {
       color: #ffd700;
       margin-bottom: 1rem;
+    }
+
+    .price-info {
+      background: rgba(78, 205, 196, 0.2);
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .price-info .price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ff6b6b;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-content {
+      position: relative;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      margin: 5% auto;
+      padding: 2rem;
+      border-radius: 25px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+      top: 15px;
+    }
+
+    .close:hover {
+      color: #4ecdc4;
+    }
+
+    .modal h2 {
+      color: #4ecdc4;
+      margin-bottom: 1rem;
+    }
+
+    .modal-section {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin: 1rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-section h3 {
+      color: #ff6b6b;
+      margin-bottom: 1rem;
+    }
+
+    .route-step {
+      background: rgba(78, 205, 196, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 0.5rem 0;
+      border-left: 3px solid #4ecdc4;
+    }
+
+    .cost-highlight {
+      background: rgba(255, 107, 107, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      display: inline-block;
+      font-weight: bold;
+      color: #ff6b6b;
     }
 
     /* Responsive design */
@@ -425,6 +564,12 @@
       .budget-grid {
         grid-template-columns: 1fr;
       }
+
+      .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -435,6 +580,7 @@
     <div class="logo">🗾 Japan Adventure 2025</div>
     <ul class="nav-links">
       <li><a href="#overview">Overview</a></li>
+      <li><a href="#transport">Transport</a></li>
       <li><a href="#budget">Budget</a></li>
       <li><a href="#timeline">Timeline</a></li>
       <li><a href="#locations">Locations</a></li>
@@ -450,6 +596,139 @@
     <h1>🏯 Japan Adventure 2025 🌸</h1>
     <p>Complete planning guide for our epic journey through Japan</p>
     <p><strong>Travelers:</strong> Winded, Olme, Cotton | <strong>Season:</strong> Spring/Summer</p>
+  </div>
+
+  <!-- Transportation Section -->
+  <div class="section" id="transport">
+    <h2>🚄 Transportation & Costs</h2>
+
+    <div class="transport-grid">
+      <div class="transport-card">
+        <h3>🎫 JR Pass Options</h3>
+        <div class="cost-breakdown">
+          <div class="cost-item">
+            <span>7-day JR Pass:</span>
+            <span>¥29,650 ($198)</span>
+          </div>
+          <div class="cost-item">
+            <span>14-day JR Pass:</span>
+            <span>¥47,250 ($315)</span>
+          </div>
+          <div class="cost-item">
+            <span>21-day JR Pass:</span>
+            <span>¥60,450 ($403)</span>
+          </div>
+          <div class="cost-item">
+            <span>Recommended for:</span>
+            <span>Olme & Cotton</span>
+          </div>
+        </div>
+        <p><strong>Benefits:</strong> Unlimited JR trains, Shinkansen (except Nozomi/Mizuho), JR buses</p>
+      </div>
+
+      <div class="transport-card">
+        <h3>🚇 IC Card (Pasmo/Suica)</h3>
+        <div class="cost-breakdown">
+          <div class="cost-item">
+            <span>Card deposit:</span>
+            <span>¥500 ($3.33)</span>
+          </div>
+          <div class="cost-item">
+            <span>Daily local transport:</span>
+            <span>¥800-1,200 ($5-8)</span>
+          </div>
+          <div class="cost-item">
+            <span>14-day estimate:</span>
+            <span>¥11,200-16,800 ($75-112)</span>
+          </div>
+          <div class="cost-item">
+            <span>Best for:</span>
+            <span>Winded (local travel)</span>
+          </div>
+        </div>
+        <p><strong>Benefits:</strong> Metro, buses, some JR local lines, convenience store payments</p>
+      </div>
+
+      <div class="transport-card">
+        <h3>✈️ Ferry to Cat Islands</h3>
+        <div class="cost-breakdown">
+          <div class="cost-item">
+            <span>Aoshima Ferry (round trip):</span>
+            <span>¥680 ($4.53)</span>
+          </div>
+          <div class="cost-item">
+            <span>Tashirojima Ferry (round trip):</span>
+            <span>¥2,400 ($16)</span>
+          </div>
+          <div class="cost-item">
+            <span>Train to Aoshima port:</span>
+            <span>¥3,240 ($21.60)</span>
+          </div>
+          <div class="cost-item">
+            <span>Train to Tashirojima port:</span>
+            <span>¥8,640 ($57.60)</span>
+          </div>
+        </div>
+        <p><strong>Note:</strong> Tashirojima requires overnight stay due to limited ferry schedule</p>
+      </div>
+    </div>
+
+    <h3 style="color: #4ecdc4; margin: 2rem 0 1rem;">🗺️ Key Route Costs from Tokyo</h3>
+    <div class="transport-grid">
+      <div class="transport-card">
+        <h3>Tokyo ↔ Kyoto</h3>
+        <div class="cost-breakdown">
+          <div class="cost-item">
+            <span>Shinkansen (one way):</span>
+            <span>¥13,320 ($89)</span>
+          </div>
+          <div class="cost-item">
+            <span>Travel time:</span>
+            <span>2h 15min</span>
+          </div>
+          <div class="cost-item">
+            <span>With JR Pass:</span>
+            <span>FREE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="transport-card">
+        <h3>Tokyo ↔ Osaka</h3>
+        <div class="cost-breakdown">
+          <div class="cost-item">
+            <span>Shinkansen (one way):</span>
+            <span>¥13,870 ($92.50)</span>
+          </div>
+          <div class="cost-item">
+            <span>Travel time:</span>
+            <span>2h 30min</span>
+          </div>
+          <div class="cost-item">
+            <span>With JR Pass:</span>
+            <span>FREE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="transport-card">
+        <h3>Tokyo ↔ Mount Fuji</h3>
+        <div class="cost-breakdown">
+          <div class="cost-item">
+            <span>Train + Bus (one way):</span>
+            <span>¥2,800 ($18.70)</span>
+          </div>
+          <div class="cost-item">
+            <span>Travel time:</span>
+            <span>2h 30min</span>
+          </div>
+          <div class="cost-item">
+            <span>JR Pass coverage:</span>
+            <span>Partial (¥1,400 saved)</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Budget Section -->
@@ -632,7 +911,7 @@
           <div class="timeline-content">
             <div class="date">Day 3-4</div>
             <h3>Central Tokyo Adventures</h3>
-            <p>Shibuya Crossing, Harajuku, Meiji Shrine. Visit Don Quijote Shibuya store. Explore Akihabara electronics district.</p>
+            <p>Shibuya Crossing, Harajuku, Meiji Shrine. Visit Don Quijote Shibuya store. Explore Akihabara electronics district and Yodobashi Akiba.</p>
           </div>
         </div>
 
@@ -648,7 +927,7 @@
           <div class="timeline-content">
             <div class="date">Day 6-7</div>
             <h3>Cat Island Adventure</h3>
-            <p>Travel to Aoshima "Cat Island" via Minshuku Ryotei. Two nights experiencing cat paradise and traditional Japanese inn.</p>
+            <p>Travel to Aoshima "Cat Island" or Tashirojima via ferry. Two nights experiencing cat paradise and traditional Japanese accommodation.</p>
           </div>
         </div>
 
@@ -662,7 +941,15 @@
 
         <div class="timeline-item">
           <div class="timeline-content">
-            <div class="date">Day 10-11</div>
+            <div class="date">Day 10</div>
+            <h3>Nara Day Trip</h3>
+            <p>Visit Nara Park, feed the sacred deer, explore Todaiji Temple with the Great Buddha, and Kasuga Taisha Shrine.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="date">Day 11-12</div>
             <h3>Osaka Food & Fun</h3>
             <p>Dotonbori district, Universal Studios Japan, Osaka Castle. Famous takoyaki and okonomiyaki food tours.</p>
           </div>
@@ -670,7 +957,7 @@
 
         <div class="timeline-item">
           <div class="timeline-content">
-            <div class="date">Day 12-13</div>
+            <div class="date">Day 13</div>
             <h3>Mount Fuji & Hot Springs</h3>
             <p>Hakone region, Lake Kawaguchi, onsen experience. Weather permitting: Mount Fuji climbing or scenic viewing.</p>
           </div>
@@ -693,7 +980,7 @@
           <div class="timeline-content">
             <div class="date">Week 1</div>
             <h3>Tokyo Deep Dive</h3>
-            <p>Comprehensive Tokyo exploration: all major districts, neighborhoods, and attractions. Shibuya, Harajuku, Akihabara, Asakusa, Ginza, Roppongi.</p>
+            <p>Comprehensive Tokyo exploration: all major districts, neighborhoods, and attractions. Shibuya, Harajuku, Akihabara, Asakusa, Ginza, Roppongi. Include Yodobashi Akiba and multiple Don Quijote visits.</p>
           </div>
         </div>
 
@@ -701,7 +988,7 @@
           <div class="timeline-content">
             <div class="date">Week 2</div>
             <h3>Kansai Region Adventure</h3>
-            <p>Extended time in Kyoto (temples, bamboo forest, traditional districts), Osaka (food culture, Universal Studios), Nara (deer park, Todai-ji Temple).</p>
+            <p>Extended time in Kyoto (temples, bamboo forest, traditional districts), Osaka (food culture, Universal Studios), Nara Park with deer feeding and temple visits.</p>
           </div>
         </div>
 
@@ -709,7 +996,7 @@
           <div class="timeline-content">
             <div class="date">Week 3</div>
             <h3>Hidden Gems & Nature</h3>
-            <p>Aoshima Cat Island, Mount Fuji region, Hakone hot springs, Nikko temples, lesser-known destinations and local experiences.</p>
+            <p>Cat islands (Aoshima or Tashirojima), Mount Fuji region, Hakone hot springs, Nikko temples, lesser-known destinations and local experiences.</p>
           </div>
         </div>
 
@@ -738,7 +1025,7 @@
 
     <h3 style="color: #ff6b6b; margin: 2rem 0 1rem;">🏪 Don Quijote Stores to Visit</h3>
     <div class="location-grid">
-      <div class="location-card">
+      <div class="location-card" onclick="showLocationModal('donki-shibuya')">
         <h4>Don Quijote Shibuya Main Store</h4>
         <p>The flagship 24-hour discount chain store. Perfect for late-night shopping and unique Japanese products.</p>
         <span class="tag">24/7</span>
@@ -746,7 +1033,7 @@
         <span class="tag">Tourist Friendly</span>
       </div>
 
-      <div class="location-card">
+      <div class="location-card" onclick="showLocationModal('donki-akihabara')">
         <h4>Don Quijote Akihabara</h4>
         <p>Electronics and anime merchandise paradise. Great for tech gadgets and otaku culture items.</p>
         <span class="tag">Electronics</span>
@@ -754,18 +1041,18 @@
         <span class="tag">Cosplay</span>
       </div>
 
-      <div class="location-card">
-        <h4>Don Quijote Shinjuku East</h4>
-        <p>Convenient location near major transport hubs. Extensive selection of Japanese snacks and beauty products.</p>
-        <span class="tag">Central Location</span>
-        <span class="tag">Beauty Products</span>
-        <span class="tag">Snacks</span>
+      <div class="location-card" onclick="showLocationModal('yodobashi-akiba')">
+        <h4>Yodobashi Akiba</h4>
+        <p>Massive 9-floor electronics megastore in Akihabara. Everything from cameras to computers and home appliances.</p>
+        <span class="tag">Electronics</span>
+        <span class="tag">Tax-Free</span>
+        <span class="tag">Mega Store</span>
       </div>
     </div>
 
     <h3 style="color: #ff6b6b; margin: 2rem 0 1rem;">🏯 Traditional & Cultural Sites</h3>
     <div class="location-grid">
-      <div class="location-card">
+      <div class="location-card" onclick="showLocationModal('fushimi-inari')">
         <h4>Fushimi Inari Shrine (Kyoto)</h4>
         <p>Thousands of red torii gates creating tunnels up the mountainside. Early morning visits recommended.</p>
         <span class="tag">Shrine</span>
@@ -773,7 +1060,7 @@
         <span class="tag">Hiking</span>
       </div>
 
-      <div class="location-card">
+      <div class="location-card" onclick="showLocationModal('sensoji-temple')">
         <h4>Senso-ji Temple (Tokyo)</h4>
         <p>Tokyo's oldest temple in Asakusa district. Traditional shopping street leading to the temple.</p>
         <span class="tag">Temple</span>
@@ -781,23 +1068,15 @@
         <span class="tag">Historic</span>
       </div>
 
-      <div class="location-card">
-        <h4>Meiji Shrine (Tokyo)</h4>
-        <p>Peaceful shrine in the heart of Tokyo, surrounded by forest. Often see traditional wedding ceremonies.</p>
-        <span class="tag">Shrine</span>
-        <span class="tag">Nature</span>
-        <span class="tag">Peaceful</span>
-      </div>
-
-      <div class="location-card">
-        <h4>Kiyomizu-dera Temple (Kyoto)</h4>
-        <p>Wooden temple with stunning city views. Famous for its large veranda and seasonal illuminations.</p>
+      <div class="location-card" onclick="showLocationModal('nara-park')">
+        <h4>Nara Park</h4>
+        <p>Famous park with over 1,200 sacred deer roaming freely. Visit Todaiji Temple with the Great Buddha statue.</p>
+        <span class="tag">Deer</span>
         <span class="tag">Temple</span>
-        <span class="tag">Views</span>
         <span class="tag">UNESCO</span>
       </div>
 
-      <div class="location-card">
+      <div class="location-card" onclick="showLocationModal('aoshima-island')">
         <h4>Aoshima Cat Island</h4>
         <p>Famous "Cat Island" where cats outnumber humans 6:1. Unique cultural experience and cat lover's paradise.</p>
         <span class="tag">Cats</span>
@@ -805,7 +1084,15 @@
         <span class="tag">Unique</span>
       </div>
 
-      <div class="location-card">
+      <div class="location-card" onclick="showLocationModal('tashirojima-island')">
+        <h4>Tashirojima Cat Island</h4>
+        <p>Northern cat island with cat shrines and fishing village culture. More remote but equally charming.</p>
+        <span class="tag">Cats</span>
+        <span class="tag">Island</span>
+        <span class="tag">Remote</span>
+      </div>
+
+      <div class="location-card" onclick="showLocationModal('mount-fuji')">
         <h4>Mount Fuji & Hakone</h4>
         <p>Japan's iconic mountain, hot springs, and scenic lake views. Perfect for nature lovers and onsen experiences.</p>
         <span class="tag">Nature</span>
@@ -819,22 +1106,42 @@
   <div class="section" id="hotels">
     <h2>🏨 Accommodation</h2>
     <div class="hotel-grid">
-      <div class="hotel-card">
+      <div class="hotel-card" onclick="showLocationModal('henn-na-hotel')">
         <h3>🏢 Henn na Hotel Maihama Tokyo Bay</h3>
         <div class="rating">★★★★☆</div>
+        <div class="price-info">
+          <div class="price">¥26,000 ($173) / night average</div>
+          <p>Based on recent booking data</p>
+        </div>
         <p><strong>Location:</strong> 5 Chome-3-20 Fujimi, Urayasu, Chiba</p>
         <p><strong>Features:</strong> Robot-staffed, near Disney Resort, modern amenities</p>
         <p><strong>Best For:</strong> Main Tokyo base, convenient transportation</p>
         <a href="https://maps.app.goo.gl/oGYJ6GwnJpwy7UKA9" target="_blank" style="color: #4ecdc4;">📍 View on Google Maps</a>
       </div>
 
-      <div class="hotel-card">
-        <h3>🐱 Minshuku Ryotei (Cat Island)</h3>
+      <div class="hotel-card" onclick="showLocationModal('minshuku-ryotei')">
+        <h3>🐱 Minshuku Ryotei (Aoshima Island)</h3>
         <div class="rating">★★★★☆</div>
+        <div class="price-info">
+          <div class="price">¥18,000 ($120) / night</div>
+          <p>Traditional ryokan experience</p>
+        </div>
         <p><strong>Location:</strong> Ehime, Ozu, Nagahama (Near Aoshima)</p>
         <p><strong>Features:</strong> Traditional ryokan, local seafood, tatami rooms</p>
         <p><strong>Best For:</strong> Cat island access, authentic experience (2 nights)</p>
         <a href="https://maps.app.goo.gl/69NUH8Y8651QkvsNA" target="_blank" style="color: #4ecdc4;">📍 View on Google Maps</a>
+      </div>
+
+      <div class="hotel-card" onclick="showLocationModal('guesthouse-amimoto')">
+        <h3>🐾 Guesthouse Amimoto (Tashirojima Island)</h3>
+        <div class="rating">★★★☆☆</div>
+        <div class="price-info">
+          <div class="price">¥21,000 ($140) / night</div>
+          <p>Authentic fishing village stay</p>
+        </div>
+        <p><strong>Location:</strong> Tashirojima Island, Miyagi Prefecture</p>
+        <p><strong>Features:</strong> Fishing village atmosphere, homemade meals, cat viewing</p>
+        <p><strong>Best For:</strong> Remote cat island experience, cultural immersion</p>
       </div>
     </div>
   </div>
@@ -845,15 +1152,15 @@
     <div class="map-container">
       <div class="map-placeholder">
         <h3>📍 Japan Adventure Route</h3>
-        <p>Tokyo → Aoshima Cat Island → Kyoto → Osaka → Mount Fuji → Tokyo</p>
+        <p>Tokyo → Cat Islands → Kyoto → Nara → Osaka → Mount Fuji → Tokyo</p>
         <p style="margin-top: 1rem; color: #4ecdc4;">
-          🗾 Major Cities: Tokyo, Kyoto, Osaka<br>
-          🏝️ Special Destinations: Aoshima Cat Island<br>
+          🗾 Major Cities: Tokyo, Kyoto, Osaka, Nara<br>
+          🏝️ Special Destinations: Aoshima & Tashirojima Cat Islands<br>
           🗻 Natural Wonders: Mount Fuji, Hakone<br>
-          🏬 Shopping: Don Quijote locations throughout
+          🏬 Shopping: Don Quijote & Yodobashi locations throughout
         </p>
         <p style="margin-top: 1rem; font-size: 0.9rem; color: #cccccc;">
-          Interactive map with real locations coming soon!<br>
+          Click on any location above for detailed travel information!<br>
           All hotel and attraction coordinates are provided above.
         </p>
       </div>
@@ -897,12 +1204,372 @@
   </div>
 </div>
 
+<!-- Modal for location details -->
+<div id="locationModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="modalContent">
+      <!-- Dynamic content will be loaded here -->
+    </div>
+  </div>
+</div>
+
 <footer style="background: rgba(0, 0, 0, 0.5); text-align: center; padding: 2rem; margin-top: 4rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
   <p>🌸 Japan Adventure 2025 - Planning Guide 🌸</p>
   <p style="color: #cccccc; margin-top: 0.5rem;">Safe travels and amazing adventures await!</p>
 </footer>
 
 <script>
+  // Location data for modals
+  const locationData = {
+    'donki-shibuya': {
+      name: 'Don Quijote Shibuya Main Store',
+      description: 'The flagship 24-hour discount chain store in the heart of Shibuya',
+      tips: [
+        'Open 24/7 - perfect for late-night shopping',
+        'Tax-free shopping available with passport',
+        'Try unique Japanese snacks and beauty products',
+        'Great for souvenirs and quirky Japanese items'
+      ],
+      bestTime: 'Late evening (9 PM+) for fewer crowds',
+      routes: [
+        {
+          from: 'Tokyo Station',
+          route: 'JR Yamanote Line → Shibuya Station (7 min)',
+          cost: '¥160 ($1.07)',
+          walkTime: '3 minutes from station'
+        },
+        {
+          from: 'Henn na Hotel Maihama',
+          route: 'JR Keiyo Line → Tokyo → JR Yamanote Line → Shibuya (45 min)',
+          cost: '¥380 ($2.53)',
+          walkTime: '3 minutes from station'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/shibuya-donki',
+      address: '28-6 Udagawacho, Shibuya City, Tokyo',
+      distance: '5.2 km from Henn na Hotel'
+    },
+    'donki-akihabara': {
+      name: 'Don Quijote Akihabara',
+      description: 'Electronics and anime merchandise paradise in the otaku capital',
+      tips: [
+        'Best selection of anime and manga merchandise',
+        'Electronics floor has unique Japanese gadgets',
+        'Cosplay costumes and accessories available',
+        'Compare prices with nearby Yodobashi Camera'
+      ],
+      bestTime: 'Weekday afternoons for better selection',
+      routes: [
+        {
+          from: 'Tokyo Station',
+          route: 'JR Keihin-Tohoku Line → Akihabara Station (4 min)',
+          cost: '¥140 ($0.93)',
+          walkTime: '2 minutes from station'
+        },
+        {
+          from: 'Henn na Hotel Maihama',
+          route: 'JR Keiyo Line → Tokyo → JR Keihin-Tohoku → Akihabara (30 min)',
+          cost: '¥320 ($2.13)',
+          walkTime: '2 minutes from station'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/akihabara-donki',
+      address: '4-3-3 Sotokanda, Chiyoda City, Tokyo',
+      distance: '18 km from Henn na Hotel'
+    },
+    'yodobashi-akiba': {
+      name: 'Yodobashi Akiba',
+      description: 'Massive 9-floor electronics megastore in Akihabara',
+      tips: [
+        'One of the largest electronics stores in the world',
+        'Tax-free shopping available',
+        'Compare prices before buying',
+        'Restaurant floors on upper levels',
+        'Point card system for discounts'
+      ],
+      bestTime: 'Weekday mornings for less crowded shopping',
+      routes: [
+        {
+          from: 'Tokyo Station',
+          route: 'JR Yamanote Line → Akihabara Station (4 min)',
+          cost: '¥140 ($0.93)',
+          walkTime: 'Directly connected to station'
+        },
+        {
+          from: 'Henn na Hotel Maihama',
+          route: 'JR Keiyo Line → Tokyo → JR Yamanote → Akihabara (30 min)',
+          cost: '¥320 ($2.13)',
+          walkTime: 'Connected to station'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/yodobashi-akiba',
+      address: '1-1 Kanda-Hanaokacho, Chiyoda City, Tokyo',
+      distance: '18 km from Henn na Hotel'
+    },
+    'fushimi-inari': {
+      name: 'Fushimi Inari Shrine',
+      description: 'Thousands of vermillion torii gates leading up Mount Inari',
+      tips: [
+        'Visit early morning (7-8 AM) for fewer crowds',
+        'Wear comfortable walking shoes',
+        'Bring water for the hike up',
+        'Full hike takes 2-3 hours',
+        'Free admission'
+      ],
+      bestTime: 'Early morning or late afternoon for best lighting',
+      routes: [
+        {
+          from: 'Kyoto Station',
+          route: 'JR Nara Line → Inari Station (5 min)',
+          cost: '¥140 ($0.93)',
+          walkTime: '2 minutes from station'
+        },
+        {
+          from: 'Tokyo (with JR Pass)',
+          route: 'Shinkansen → Kyoto → JR Nara Line → Inari (3h total)',
+          cost: 'FREE with JR Pass',
+          walkTime: '2 minutes from Inari Station'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/fushimi-inari',
+      address: '68 Fukakusa Yabunouchicho, Fushimi Ward, Kyoto',
+      distance: '6 km from Kyoto Station'
+    },
+    'nara-park': {
+      name: 'Nara Park',
+      description: 'Historic park with over 1,200 sacred deer roaming freely',
+      tips: [
+        'Buy deer crackers (¥200) from official vendors only',
+        'Bow to the deer before feeding - they bow back!',
+        'Don\'t feed deer anything except official crackers',
+        'Visit Todaiji Temple with the Great Buddha',
+        'Deer are most active in early morning and evening'
+      ],
+      bestTime: 'Early morning (8-9 AM) when deer are most active',
+      routes: [
+        {
+          from: 'Kyoto Station',
+          route: 'Kintetsu Kyoto Line → Kintetsu-Nara Station (45 min)',
+          cost: '¥640 ($4.27)',
+          walkTime: '5 minutes to park entrance'
+        },
+        {
+          from: 'Osaka Namba',
+          route: 'Kintetsu Nara Line → Kintetsu-Nara Station (40 min)',
+          cost: '¥570 ($3.80)',
+          walkTime: '5 minutes to park entrance'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/nara-park',
+      address: 'Nara Park, Nara City, Nara Prefecture',
+      distance: '35 km from Kyoto, 30 km from Osaka'
+    },
+    'aoshima-island': {
+      name: 'Aoshima Cat Island',
+      description: 'Famous cat island where cats outnumber humans 6:1',
+      tips: [
+        'Bring cat food (check ferry rules first)',
+        'Respect the elderly residents',
+        'No convenience stores - bring snacks/water',
+        'Ferry runs limited schedule - check times',
+        'Stay overnight for best cat interaction'
+      ],
+      bestTime: 'Early morning or late afternoon when cats are active',
+      routes: [
+        {
+          from: 'Tokyo',
+          route: 'Shinkansen → Matsuyama → Local train → Ferry (6+ hours)',
+          cost: '¥18,500 ($123) one way',
+          walkTime: 'Ferry: 35 minutes to island'
+        },
+        {
+          from: 'Ferry Port (Nagahama)',
+          route: 'Ferry to Aoshima Island',
+          cost: '¥680 ($4.53) round trip',
+          walkTime: '35 minute ferry ride'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/aoshima-island',
+      address: 'Aoshima Island, Ozu City, Ehime Prefecture',
+      distance: '600 km from Tokyo'
+    },
+    'tashirojima-island': {
+      name: 'Tashirojima Cat Island',
+      description: 'Northern cat island with cat shrines and fishing village culture',
+      tips: [
+        'More remote than Aoshima - plan overnight stay',
+        'Fishing village culture - respect local customs',
+        'Cat shrines throughout the island',
+        'Fewer tourists, more authentic experience',
+        'Limited English - download translation app'
+      ],
+      bestTime: 'Spring through fall (ferry may not run in winter)',
+      routes: [
+        {
+          from: 'Tokyo',
+          route: 'Shinkansen → Sendai → Local train → Ferry (4+ hours)',
+          cost: '¥12,500 ($83) one way',
+          walkTime: 'Ferry: 45 minutes to island'
+        },
+        {
+          from: 'Ishinomaki Port',
+          route: 'Ferry to Tashirojima Island',
+          cost: '¥2,400 ($16) round trip',
+          walkTime: '45 minute ferry ride'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/tashirojima-island',
+      address: 'Tashirojima Island, Ishinomaki City, Miyagi Prefecture',
+      distance: '400 km from Tokyo'
+    },
+    'mount-fuji': {
+      name: 'Mount Fuji & Hakone',
+      description: 'Japan\'s iconic mountain and hot spring resort area',
+      tips: [
+        'Climbing season: July-September only',
+        'Book onsen/ryokan in advance',
+        'Check weather for mountain visibility',
+        'Hakone Free Pass covers local transport',
+        'Lake Kawaguchi offers best Fuji views'
+      ],
+      bestTime: 'Clear days for mountain visibility, early morning best',
+      routes: [
+        {
+          from: 'Tokyo (Shinjuku)',
+          route: 'JR Chuo Line → Otsuki → Fujikyu Line → Kawaguchiko (2.5h)',
+          cost: '¥2,800 ($18.70) one way',
+          walkTime: 'Varies by specific destination'
+        },
+        {
+          from: 'Tokyo (via Hakone)',
+          route: 'Odakyu Line → Hakone-Yumoto → Local transport',
+          cost: '¥1,190 ($7.93) + Hakone Free Pass ¥1,500',
+          walkTime: 'Bus/train connections within Hakone'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/mount-fuji',
+      address: 'Mount Fuji, Shizuoka/Yamanashi Prefecture',
+      distance: '120 km from Tokyo'
+    },
+    'sensoji-temple': {
+      name: 'Senso-ji Temple',
+      description: 'Tokyo\'s oldest temple (645 AD) in historic Asakusa district',
+      tips: [
+        'Visit Nakamise Shopping Street leading to temple',
+        'Try traditional snacks like ningyo-yaki',
+        'Free admission to temple grounds',
+        'Draw omikuji (fortune telling papers)',
+        'Evening illumination is beautiful'
+      ],
+      bestTime: 'Early morning (7-8 AM) or evening for fewer crowds',
+      routes: [
+        {
+          from: 'Tokyo Station',
+          route: 'JR Yamanote → Kanda → Tokyo Metro Ginza → Asakusa (15 min)',
+          cost: '¥200 ($1.33)',
+          walkTime: '5 minutes from Asakusa Station'
+        },
+        {
+          from: 'Henn na Hotel Maihama',
+          route: 'JR Keiyo → Tokyo → Metro Ginza → Asakusa (45 min)',
+          cost: '¥380 ($2.53)',
+          walkTime: '5 minutes from station'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/sensoji-temple',
+      address: '2-3-1 Asakusa, Taito City, Tokyo',
+      distance: '22 km from Henn na Hotel'
+    },
+    'henn-na-hotel': {
+      name: 'Henn na Hotel Maihama Tokyo Bay',
+      description: 'Robot-staffed hotel near Tokyo Disney Resort',
+      tips: [
+        'Robot check-in process - English available',
+        'Near Disney Resort and Ikspiari mall',
+        'Book well in advance for better rates',
+        'Convenient train access to central Tokyo',
+        'Modern amenities with unique experience'
+      ],
+      bestTime: 'Book 2-3 months in advance for best rates',
+      routes: [
+        {
+          from: 'Narita Airport',
+          route: 'Airport Express → Tokyo → JR Keiyo Line → Shin-Urayasu (1h)',
+          cost: '¥1,340 ($8.93)',
+          walkTime: '8 minutes from station'
+        },
+        {
+          from: 'Tokyo Station',
+          route: 'JR Keiyo Line → Shin-Urayasu Station (17 min)',
+          cost: '¥220 ($1.47)',
+          walkTime: '8 minutes from station'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/oGYJ6GwnJpwy7UKA9',
+      address: '5 Chome-3-20 Fujimi, Urayasu, Chiba',
+      distance: 'Base location for Tokyo exploration'
+    },
+    'minshuku-ryotei': {
+      name: 'Minshuku Ryotei (Aoshima Island)',
+      description: 'Traditional Japanese inn near the famous cat island',
+      tips: [
+        'Traditional tatami rooms with futon bedding',
+        'Includes traditional Japanese breakfast',
+        'Fresh seafood from local waters',
+        'Book early - limited rooms available',
+        'Perfect base for cat island exploration'
+      ],
+      bestTime: 'Book 1-2 months in advance, especially during cat season',
+      routes: [
+        {
+          from: 'Matsuyama Airport',
+          route: 'Airport bus → Matsuyama → JR → Nagahama Port (2h)',
+          cost: '¥1,200 ($8) + ferry ¥680',
+          walkTime: '10 minutes from port to accommodation'
+        },
+        {
+          from: 'Tokyo',
+          route: 'Shinkansen + local trains to reach accommodation area',
+          cost: '¥18,500+ ($123+) total journey',
+          walkTime: 'Multiple connections required'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/69NUH8Y8651QkvsNA',
+      address: 'Ehime, Ozu, Nagahama (Near Aoshima)',
+      distance: '10 minutes from Aoshima ferry port'
+    },
+    'guesthouse-amimoto': {
+      name: 'Guesthouse Amimoto (Tashirojima Island)',
+      description: 'Authentic fishing village guesthouse on the cat island',
+      tips: [
+        'Traditional fishing village experience',
+        'Homemade meals featuring local seafood',
+        'Very limited English - bring translation app',
+        'Respect local customs and quiet hours',
+        'Unique opportunity to live among cats and fishermen'
+      ],
+      bestTime: 'Spring through fall - winter ferries may be cancelled',
+      routes: [
+        {
+          from: 'Sendai Station',
+          route: 'JR Senseki Line → Ishinomaki → Ferry (2h total)',
+          cost: '¥1,140 ($7.60) + ferry ¥2,400',
+          walkTime: '5 minutes from ferry port'
+        },
+        {
+          from: 'Tokyo',
+          route: 'Shinkansen → Sendai → local train → ferry (4h total)',
+          cost: '¥12,500+ ($83+) total journey',
+          walkTime: 'Multiple connections to island'
+        }
+      ],
+      mapLink: 'https://maps.app.goo.gl/tashirojima-guesthouse',
+      address: 'Tashirojima Island, Ishinomaki City, Miyagi Prefecture',
+      distance: 'On the island - 5 minutes from ferry port'
+    }
+  };
+
   // Budget details functionality
   function showBudgetDetails(person) {
     // Hide overview
@@ -943,6 +1610,72 @@
     document.querySelector('.timeline-' + duration).classList.add('active');
   }
 
+  // Modal functionality for locations
+  function showLocationModal(locationId) {
+    const modal = document.getElementById('locationModal');
+    const modalContent = document.getElementById('modalContent');
+    const location = locationData[locationId];
+
+    if (!location) return;
+
+    modalContent.innerHTML = `
+      <h2>${location.name}</h2>
+
+      <div class="modal-section">
+        <h3>📍 About</h3>
+        <p>${location.description}</p>
+        <p><strong>Address:</strong> ${location.address}</p>
+        <p><strong>Distance:</strong> ${location.distance}</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>💡 Tips & Best Practices</h3>
+        <ul>
+          ${location.tips.map(tip => `<li>${tip}</li>`).join('')}
+        </ul>
+        <p><strong>Best Time to Visit:</strong> ${location.bestTime}</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>🚄 How to Get There</h3>
+        ${location.routes.map(route => `
+          <div class="route-step">
+            <strong>From ${route.from}:</strong><br>
+            ${route.route}<br>
+            <span class="cost-highlight">Cost: ${route.cost}</span><br>
+            <small>Walking time: ${route.walkTime}</small>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="modal-section">
+        <h3>🗺️ Map & Location</h3>
+        <p>Click the link below to view exact location and get real-time directions:</p>
+        <a href="${location.mapLink}" target="_blank" style="color: #4ecdc4; text-decoration: none; font-weight: bold;">
+          📍 Open in Google Maps →
+        </a>
+      </div>
+    `;
+
+    modal.style.display = 'block';
+  }
+
+  // Close modal functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('locationModal');
+    const closeBtn = document.querySelector('.close');
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  });
+
   // Smooth scrolling for navigation links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -958,7 +1691,7 @@
   });
 
   // Add interactive elements
-  document.querySelectorAll('.location-card').forEach(card => {
+  document.querySelectorAll('.location-card, .hotel-card').forEach(card => {
     card.addEventListener('mouseenter', function() {
       this.style.boxShadow = '0 10px 25px rgba(78, 205, 196, 0.3)';
     });
@@ -988,6 +1721,19 @@
     item.style.transform = 'translateY(20px)';
     item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(item);
+  });
+
+  // Add hover effects to transport cards
+  document.querySelectorAll('.transport-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-5px)';
+      this.style.boxShadow = '0 10px 25px rgba(78, 205, 196, 0.2)';
+    });
+
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0)';
+      this.style.boxShadow = 'none';
+    });
   });
 </script>
 </body>
